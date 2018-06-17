@@ -1,5 +1,14 @@
-const express = require('express')
+const express = require('express');
+const next = require('next');
+
+const dev = process.env.NODE_ENV !== 'production';
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
+
+nextApp.prepare();
 
 const app = express();
-app.get('/', (erq, res) => res.send('hellloooo there'));
-app.listen(3000);
+app.use(handle);
+
+app.listen(14000);
+console.log('listening on port 14000');
